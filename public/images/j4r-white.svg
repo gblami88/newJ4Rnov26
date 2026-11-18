@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="100 150 350 270" role="img" aria-labelledby="title">
+  <title id="title">Just 4 Results</title>
+  <g fill="#fff">
+    <path d="M160 170h48v7h-11c-6 0-8 3-8 10v95c0 44-13 73-43 73-13 0-20-4-20-7 0-2 2-3 6-2 20 4 35-10 40-29 3-10 4-23 4-37v-93c0-7-2-10-8-10h-8z"/>
+    <path d="M231 213h54c29 0 46 12 46 33 0 20-16 31-38 34l83 90c18 20 35 29 49 29v5c-27 1-47-8-63-24l-89-94h-14v63c0 6 4 10 12 10h7v5h-47v-5h7c6 0 9-4 9-10V228c0-7-4-10-10-10h-6zm28 5v57h19c24 0 36-9 36-28 0-19-12-29-36-29z"/>
+    <text x="256" y="264" text-anchor="middle" font-family="Times New Roman, Georgia, serif" font-size="17" letter-spacing="7">JUST 4 RESULTS</text>
+  </g>
+</svg>

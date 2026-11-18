@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Local Visibility Check — Just 4 Results</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --mid: #555550;
+    --soft: #9b9b94;
+    --bg: #faf9f6;
+    --white: #ffffff;
+    --accent: #2d5a3d;
+    --accent-light: #f0fdf4;
+    --line: #e5e4df;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,249,246,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .nav-logo img {
+    display: block;
+    width: 124px;
+    height: 52px;
+    object-fit: contain;
+  }
+  .nav-cta {
+    background: var(--accent);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .form-section {
+    padding: 100px 40px;
+    background: var(--white);
+  }
+
+  .form-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .form-header {
+    margin-bottom: 48px;
+    text-align: center;
+  }
+
+  .form-header h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .form-header p {
+    font-size: 1.05rem;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  .embed-container {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 40px;
+  }
+
+  .embed-container iframe {
+    width: 100%;
+    min-height: 800px;
+    border: none;
+    border-radius: 8px;
+  }
+
+  .embed-note {
+    font-size: 0.85rem;
+    color: var(--soft);
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  footer {
+    background: var(--white);
+    border-top: 1px solid var(--line);
+    padding: 64px 40px 0;
+  }
+  .footer-body {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr 1fr;
+    gap: 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 56px;
+  }
+  .footer-brand-logo {
+    width: 144px;
+    height: 112px;
+    margin-bottom: 14px;
+  }
+  .footer-brand-logo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .footer-brand p {
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.6;
+    max-width: 260px;
+    margin-bottom: 18px;
+  }
+  .footer-brand-social { display: flex; gap: 12px; align-items: center; }
+  .footer-brand-social a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .footer-brand-social a:hover { transform: translateY(-3px); opacity: 0.88; }
+  .footer-brand-social a.email-icon { background: var(--accent); color: white; }
+  .footer-brand-social a.ig-icon { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+  .footer-col-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col ul a {
+    font-size: 0.92rem;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+    line-height: 1.4;
+  }
+  .footer-col ul a:hover { color: var(--accent); }
+  .footer-bottom {
+    border-top: 1px solid var(--line);
+    padding: 20px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .footer-bottom-copy {
+    font-size: 0.84rem;
+    color: var(--mid);
+    line-height: 1.8;
+  }
+  .footer-bottom-copy span { color: var(--accent); font-weight: 500; }
+  .footer-bottom-dev { display: block; margin-top: 4px; }
+  .footer-bottom-dev a { color: var(--ink); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+  .footer-bottom-dev a:hover { color: var(--accent); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-logo { font-size: 0.95rem; }
+    nav > div { gap: 14px; }
+    nav a:not(.nav-cta) { font-size: 0.9rem; }
+    .form-section { padding: 80px 24px; }
+  }
+
+  @media (max-width: 640px) {
+    .form-section { padding: 64px 20px; }
+    .embed-container iframe { min-height: 600px; }
+    .embed-container { padding: 14px; }
+    footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; gap: 14px; }
+    .footer-right { flex-wrap: wrap; gap: 14px; }
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 0 16px; height: 56px; }
+    .nav-logo { font-size: 0.88rem; }
+    .nav-cta { font-size: 0.78rem; padding: 8px 14px; }
+    nav > div { gap: 10px; }
+    nav a:not(.nav-cta) { font-size: 0.85rem; }
+    .form-section { padding: 48px 16px; }
+    .form-header h1 { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+    .form-header p { font-size: 0.95rem; }
+    .embed-container iframe { min-height: 520px; }
+    .embed-container { padding: 10px; }
+    footer { padding: 48px 16px 0; }
+    .footer-body { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-brand { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 0 16px; height: 56px; }
+    .nav-logo { font-size: 0.88rem; }
+    .nav-cta { font-size: 0.78rem; padding: 8px 14px; }
+    nav > div { gap: 10px; }
+    nav a:not(.nav-cta) { font-size: 0.85rem; }
+    .form-section { padding: 48px 16px; }
+    .form-header h1 { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+    .form-header p { font-size: 0.95rem; }
+    .embed-container iframe { min-height: 520px; }
+    .embed-container { padding: 10px; }
+    footer { padding: 40px 16px 0; }
+    .footer-body { grid-template-columns: 1fr 1fr; gap: 24px; padding-bottom: 40px; }
+    .footer-brand { grid-column: 1 / -1; margin-bottom: 8px; }
+    .footer-bottom { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/index.html"><img src="/images/j4r-black.svg" alt="Just 4 Results"></a>
+  <div style="display: flex; gap: 20px; align-items: center;">
+    <a href="/blog.html" style="text-decoration: none; color: var(--ink); font-size: 0.95rem; font-weight: 500;">Blog</a>
+    <a class="nav-cta" href="/index.html">Home</a>
+  </div>
+</nav>
+
+<section class="form-section">
+  <div class="form-container">
+    <div class="form-header">
+      <h1>Your Free Local Visibility Check</h1>
+      <p>Tell us about your business. In 24 hours or less, we'll show you exactly where you stand on Google and what you can do to fix it.</p>
+    </div>
+
+    <div class="embed-container">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe59GvEiO3bt5RxF8shAP80iq_FIN4PEWynVBYoGmuGUOOQiA/viewform?embedded=true" width="640" height="1032" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <p class="embed-note">Or email us directly: info@just4results.com</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-body">
+    <div class="footer-brand">
+      <div class="footer-brand-logo">
+        <img src="/images/j4r-black.svg" alt="Just 4 Results">
+      </div>
+      <p>Helping Lisbon businesses get found online.</p>
+      <div class="footer-brand-social">
+        <a href="mailto:info@just4results.com" aria-label="Email" class="email-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </a>
+        <a href="#" aria-label="Instagram" class="ig-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Product</div>
+      <ul>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/form.html">Free Visibility Check</a></li>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/case-study.html">Case Study</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <li><a href="#">SEO</a></li>
+        <li><a href="#">Website</a></li>
+        <li><a href="#">Paid Advertising / PPC</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legal</div>
+      <ul>
+        <li><a href="/terms.html">Terms of Service</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-copy">© 2026 Just 4 Results. All rights reserved. <span>Made in Lisbon</span>
+      <span class="footer-bottom-dev">Developed by <a href="https://just4results.com">Just 4 Results</a></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

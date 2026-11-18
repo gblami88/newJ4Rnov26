@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just 4 Results — Local Visibility for Lisbon Businesses</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --mid: #555550;
+    --soft: #9b9b94;
+    --bg: #faf9f6;
+    --white: #ffffff;
+    --accent: #2d5a3d;
+    --accent-light: #f0fdf4;
+    --line: #e5e4df;
+    --highlight: #f4f3ee;
+    --card-blue-bg: #e7f1fb;
+    --card-blue-icon: #d1e3f5;
+    --card-green-bg: #e8f5ea;
+    --card-green-icon: #d0ebce;
+    --card-orange-bg: #fcf0e4;
+    --card-orange-icon: #f7e5d3;
+    --highlight-blue: #4169e1;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .highlight-text {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--highlight-blue);
+  }
+
+  .google-text {
+    font-family: 'Product Sans', 'DM Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    font-style: normal;
+  }
+  .google-text .g-blue { color: #4285F4; }
+  .google-text .g-red { color: #EA4335; }
+  .google-text .g-yellow { color: #FBBC05; }
+  .google-text .g-green { color: #34A853; }
+
+  .location-badge {
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.1s forwards;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,249,246,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 0 32px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .nav-logo img {
+    display: block;
+    width: 124px;
+    height: 52px;
+    object-fit: contain;
+  }
+  .nav-cta {
+    background: var(--accent);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  section { padding: 96px 40px; }
+  .container { max-width: 820px; margin: 0 auto; }
+
+  .hero {
+    background: var(--bg);
+    padding: 128px 40px 96px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-inner { max-width: 760px; margin: 0 auto; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    padding: 4px 12px;
+    border: 1px solid #bbf7d0;
+    border-radius: 20px;
+    background: var(--accent-light);
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.6rem, 6vw, 4rem);
+    line-height: 1.1;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 24px;
+    max-width: 680px;
+  }
+  .hero p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--mid);
+    max-width: 540px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+  .hero-cta-group { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 16px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-note { font-size: 0.85rem; color: var(--soft); }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+  .lead {
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    color: var(--mid);
+    line-height: 1.7;
+    margin-bottom: 16px;
+    max-width: 640px;
+  }
+
+  .opportunity { background: var(--white); border-bottom: 1px solid var(--line); }
+  .stat-box {
+    background: linear-gradient(110deg, #f3fff7 0%, #e8faef 100%);
+    border: 1px solid rgba(24, 169, 87, 0.18);
+    border-left: 3px solid #18a957;
+    border-radius: 12px;
+    padding: 32px;
+    margin: 32px 0;
+    box-shadow: 0 14px 34px rgba(24, 169, 87, 0.22);
+  }
+  .stat-box p { font-size: 1rem; color: var(--mid); line-height: 1.7; }
+  .stat-box { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .stat-box:hover { transform: translateY(-4px); box-shadow: 0 18px 38px rgba(24, 169, 87, 0.26); }
+  .highlight-green {
+    color: #18a957;
+    font-weight: 700;
+  }
+
+  .heatmap-comparison { background: var(--bg); border-bottom: 1px solid var(--line); }
+  .heatmap-comparison .container { max-width: 1000px; }
+  .heatmap-head { text-align: center; margin-bottom: 40px; }
+  .heatmap-head h2 { margin-bottom: 12px; }
+  .heatmap-head .lead { margin: 0 auto; max-width: 520px; }
+
+  .heatmap-window {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(26,26,24,0.14), 0 6px 16px rgba(26,26,24,0.06);
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .heatmap-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #f5f5f3;
+    border-bottom: 1px solid var(--line);
+  }
+  .heatmap-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .heatmap-dot.r { background: #ff5f57; }
+  .heatmap-dot.y { background: #febc2e; }
+  .heatmap-dot.g { background: #28c840; }
+  .heatmap-url {
+    flex: 1;
+    margin-left: 8px;
+    padding: 6px 14px;
+    background: var(--white);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    color: var(--soft);
+    border: 1px solid var(--line);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .heatmap-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    padding: 16px 16px 0;
+    background: var(--white);
+  }
+  .heatmap-tab {
+    padding: 10px 24px;
+    border: 1px solid var(--line);
+    border-radius: 8px 8px 0 0;
+    background: var(--bg);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--mid);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: none;
+  }
+  .heatmap-tab.active { background: var(--white); color: var(--ink); }
+  .heatmap-tab:hover:not(.active) { background: #f0efe9; }
+  .heatmap-tab-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .heatmap-tab-dot.good { background: #18a957; }
+  .heatmap-tab-dot.bad { background: #dc3545; }
+
+  .heatmap-viewer {
+    position: relative;
+    height: 420px;
+    background: var(--white);
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+  .heatmap-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .heatmap-layer-bad { z-index: 1; }
+  .heatmap-layer-good { z-index: 2; clip-path: inset(0 0 0 50%); }
+
+  .heatmap-map {
+    width: 100%;
+    height: 100%;
+    background: #e8eaed;
+    position: relative;
+    overflow: hidden;
+  }
+  .heatmap-map-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+  }
+
+  .heatmap-grid-overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 4px;
+    padding: 20px;
+    z-index: 2;
+  }
+  .heatmap-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .heatmap-pin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+  }
+  .heatmap-pin:hover { transform: scale(1.15); z-index: 10; }
+  .heatmap-pin.good {
+    background: linear-gradient(135deg, #18a957, #2d7a3d);
+  }
+  .heatmap-pin.bad {
+    background: linear-gradient(135deg, #dc3545, #b02a37);
+  }
+  .heatmap-pin.muted {
+    background: linear-gradient(135deg, #9b9b94, #7a7a74);
+  }
+
+  .heatmap-legend {
+    display: flex;
+    gap: 16px;
+    padding: 12px 20px;
+    background: var(--white);
+    border-top: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+  .heatmap-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: var(--mid);
+  }
+  .heatmap-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  .heatmap-badge {
+    position: absolute;
+    top: 16px;
+    z-index: 5;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .heatmap-badge.good { left: 16px; background: #18a957; color: white; }
+  .heatmap-badge.bad { right: 16px; background: #dc3545; color: white; }
+  .heatmap-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: white; }
+
+  .heatmap-slider-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+    background: white;
+    z-index: 6;
+    transform: translateX(-50%);
+    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    pointer-events: none;
+  }
+  .heatmap-slider-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--accent);
+    z-index: 7;
+    cursor: ew-resize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    transition: transform 0.15s ease;
+  }
+  .heatmap-slider-handle:hover { transform: translate(-50%, -50%) scale(1.1); }
+  .heatmap-slider-handle:active { transform: translate(-50%, -50%) scale(1.05); }
+  .heatmap-slider-handle svg { color: var(--accent); }
+
+  .heatmap-caption {
+    text-align: center;
+    padding: 16px 20px;
+    font-size: 0.85rem;
+    color: var(--soft);
+    background: var(--white);
+  }
+
+  @media (max-width: 768px) {
+    .heatmap-viewer { height: 340px; }
+    .heatmap-grid-overlay { gap: 2px; padding: 12px; }
+    .heatmap-pin { width: 28px; height: 28px; font-size: 0.65rem; }
+    .heatmap-slider-handle { width: 38px; height: 38px; }
+    .heatmap-tab { padding: 8px 16px; font-size: 0.8rem; }
+  }
+
+  @media (max-width: 640px) {
+    .heatmap-viewer { height: 300px; }
+    .heatmap-pin { width: 24px; height: 24px; font-size: 0.6rem; }
+    .heatmap-grid-overlay { padding: 8px; gap: 1px; }
+    .heatmap-badge { font-size: 0.68rem; padding: 5px 10px; top: 10px; }
+    .heatmap-badge.good { left: 10px; }
+    .heatmap-badge.bad { right: 10px; }
+    .heatmap-slider-handle { width: 34px; height: 34px; border-width: 2px; }
+    .heatmap-url { font-size: 0.7rem; }
+  }
+
+  @media (max-width: 480px) {
+    .heatmap-viewer { height: 260px; }
+    .heatmap-pin { width: 20px; height: 20px; font-size: 0.55rem; }
+    .heatmap-grid-overlay { padding: 6px; }
+    .heatmap-tab { padding: 7px 12px; font-size: 0.75rem; }
+  }
+
+  .plan { background: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .plan h2 { color: white; }
+  .guarantee-box {
+    margin-top: 32px;
+    padding: 24px 32px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    color: white;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .guarantee-box strong {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.6;
+  }
+  .guarantee-box { position: relative; overflow: hidden; transition: transform 0.3s ease, background 0.3s ease; }
+  .guarantee-box::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -30%;
+    width: 20%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent);
+    transform: skewX(-18deg);
+    transition: left 0.7s ease;
+    pointer-events: none;
+  }
+  .guarantee-box:hover { transform: translateY(-3px); background: rgba(255,255,255,0.14); }
+  .guarantee-box:hover::after { left: 120%; }
+
+  .how { background: var(--bg); border-bottom: 1px solid var(--line); }
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+  }
+  .card.blue { background: var(--card-blue-bg); }
+  .card.green { background: var(--card-green-bg); }
+  .card.orange { background: var(--card-orange-bg); }
+
+  .card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+  .card.blue .card-icon { background: var(--card-blue-icon); }
+  .card.green .card-icon { background: var(--card-green-icon); }
+  .card.orange .card-icon { background: var(--card-orange-icon); }
+  .card-icon { transition: transform 0.3s ease; }
+  .card:hover .card-icon { transform: rotate(-5deg) scale(1.06); }
+
+  .card-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2rem;
+    color: var(--mid);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .card p { font-size: 0.97rem; color: var(--mid); line-height: 1.65; }
+  .card {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(45,90,61,0.10);
+  }
+
+  .why { background: var(--white); border-bottom: 1px solid var(--line); }
+  .why-showcase {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 56px;
+    align-items: center;
+    margin: 48px 0;
+  }
+  .why-intro-text { max-width: 480px; }
+  .why-intro-text .lead { margin-bottom: 0; }
+
+  .phone-mockup { display: flex; justify-content: center; }
+  .phone-frame {
+    width: 300px;
+    height: 600px;
+    background: linear-gradient(145deg, #2a2a26, #131311);
+    border-radius: 44px;
+    padding: 12px;
+    box-shadow:
+      0 30px 60px rgba(26,26,24,0.28),
+      0 8px 20px rgba(26,26,24,0.16),
+      inset 0 0 0 2px rgba(255,255,255,0.06);
+    position: relative;
+  }
+  .phone-notch {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 26px;
+    background: #131311;
+    border-radius: 14px;
+    z-index: 5;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: #ebedf0;
+    border-radius: 32px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .phone-statusbar {
+    height: 50px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 24px 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .phone-indicators { display: flex; align-items: center; gap: 5px; }
+  .phone-chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: var(--accent);
+    color: white;
+    flex-shrink: 0;
+  }
+  .phone-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.22);
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .phone-contact { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+  .phone-contact strong { font-size: 0.95rem; line-height: 1.25; }
+  .phone-contact span { font-size: 0.68rem; opacity: 0.82; }
+  .phone-call-icon { flex-shrink: 0; display: grid; place-items: center; }
+  .phone-chat-body {
+    flex: 1;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: linear-gradient(180deg, #e8eaed, #f1f2f4);
+  }
+  .phone-bubble {
+    background: white;
+    padding: 12px 16px;
+    border-radius: 16px 16px 16px 4px;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    align-self: flex-start;
+    max-width: 92%;
+  }
+  .phone-bubble-time { font-size: 0.62rem; color: var(--soft); padding-left: 6px; }
+  .why-items { display: flex; flex-direction: column; }
+  .why-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 16px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .why-item:last-child { border-bottom: none; }
+  .why-item:hover {
+    transform: translateX(6px);
+    background: linear-gradient(90deg, rgba(45,90,61,0.04), transparent);
+  }
+  .why-arrow { color: var(--accent); font-size: 1rem; padding-top: 3px; }
+  .why-item h3 { font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+  .why-item p { font-size: 0.95rem; color: var(--mid); line-height: 1.6; }
+
+  .qualifier { background: var(--bg); border-bottom: 1px solid var(--line); }
+  .testimonial-placeholder {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .testimonial-card {
+    min-width: 0;
+    padding: 24px;
+    background: #f7f7f7;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    box-shadow: 0 3px 10px rgba(26,26,24,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(26,26,24,0.11);
+  }
+  .testimonial-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .testimonial-person {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+  .testimonial-avatar {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .testimonial-person-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .testimonial-card cite {
+    color: var(--ink);
+    font-size: 0.95rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .testimonial-source {
+    color: var(--soft);
+    font-size: 0.78rem;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+  .testimonial-google {
+    flex: 0 0 auto;
+  }
+  .testimonial-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .testimonial-stars {
+    color: #fbbc04;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .testimonial-verified {
+    display: inline-grid;
+    place-items: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #4285f4;
+    color: white;
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+  .testimonial-card blockquote {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    color: var(--ink);
+    font-size: 0.98rem;
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  .testimonial-card.expanded blockquote {
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+  .testimonial-read-more {
+    color: var(--soft);
+    font-size: 0.85rem;
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+  }
+  .testimonial-read-more:hover { color: var(--accent); }
+  .qualifier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+  .qual-col { padding: 32px; border-radius: 12px; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .qual-col.yes { background: #d4edda; border: 1px solid #28a745; }
+  .qual-col.no { background: #f8d7da; border: 1px solid #dc3545; }
+  .qual-col:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+  }
+  .qual-col h3 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px; }
+  .qual-col.yes h3 { color: #155724; }
+  .qual-col.no h3 { color: #721c24; }
+  .qual-col li {
+    list-style: none;
+    font-size: 0.95rem;
+    color: var(--ink);
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    line-height: 1.5;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .qual-col li:last-child { border-bottom: none; padding-bottom: 0; }
+  .qual-col.yes li::before { content: "✓"; color: #28a745; font-weight: 700; flex-shrink: 0; }
+  .qual-col.no li::before { content: "×"; color: #dc3545; font-weight: 700; flex-shrink: 0; }
+
+  .faq { background: var(--white); border-bottom: 1px solid var(--line); }
+  .faq-list { margin-top: 48px; }
+  details { border-bottom: 1px solid var(--line); transition: background 0.2s ease; }
+  details:first-child { border-top: 1px solid var(--line); }
+  details:hover { background: rgba(45,90,61,0.03); }
+  details[open] { background: rgba(45,90,61,0.03); }
+  summary {
+    padding: 24px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 1.4rem; font-weight: 300; color: var(--soft); flex-shrink: 0; transition: transform 0.2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  .faq-answer { padding: 0 0 24px; font-size: 0.97rem; color: var(--mid); line-height: 1.75; max-width: 640px; }
+
+  .cta-section { background: var(--accent); text-align: center; padding: 96px 40px; }
+  .cta-section h2 { color: white; margin-bottom: 16px; }
+  .cta-section .lead { color: rgba(255,255,255,0.88); margin: 0 auto 40px; max-width: 520px; }
+  .cta-section .btn-primary { background: white; color: var(--accent); }
+  .cta-section .btn-primary:hover { opacity: 0.9; }
+  .cta-section .btn-note { color: rgba(255,255,255,0.7); }
+  .cta-section .btn-primary { box-shadow: 0 10px 24px rgba(0,0,0,0.12); }
+  .cta-section .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(0,0,0,0.16); }
+
+  footer {
+    background: var(--white);
+    border-top: 1px solid var(--line);
+    padding: 64px 40px 0;
+  }
+  .footer-body {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr 1fr;
+    gap: 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 64px;
+  }
+  .footer-brand-logo {
+    width: 144px;
+    height: 112px;
+    margin-bottom: 16px;
+  }
+  .footer-brand-logo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .footer-brand p {
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.6;
+    max-width: 260px;
+    margin-bottom: 16px;
+  }
+  .footer-brand-social { display: flex; gap: 12px; align-items: center; }
+  .footer-brand-social a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .footer-brand-social a:hover { transform: translateY(-3px); opacity: 0.88; }
+  .footer-brand-social a.email-icon { background: var(--accent); color: white; }
+  .footer-brand-social a.ig-icon { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+  .footer-col-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col ul a {
+    font-size: 0.92rem;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+    line-height: 1.4;
+  }
+  .footer-col ul a:hover { color: var(--accent); }
+  .footer-bottom {
+    border-top: 1px solid var(--line);
+    padding: 24px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .footer-bottom-copy {
+    font-size: 0.84rem;
+    color: var(--mid);
+    line-height: 1.8;
+  }
+  .footer-bottom-copy span { color: var(--accent); font-weight: 500; }
+  .footer-bottom-dev { display: block; margin-top: 8px; }
+  .footer-bottom-dev a { color: var(--ink); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+  .footer-bottom-dev a:hover { color: var(--accent); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-inner > * { animation: fadeUp 0.6s ease both; }
+  .hero-inner > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero-inner > *:nth-child(2) { animation-delay: 0.15s; }
+  .hero-inner > *:nth-child(3) { animation-delay: 0.25s; }
+  .hero-inner > *:nth-child(4) { animation-delay: 0.35s; }
+
+  .motion-enabled .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  .motion-enabled .reveal.is-visible {
+    animation: revealIn 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .motion-enabled .reveal[data-reveal="left"] { transform: translateX(-28px); }
+  .motion-enabled .reveal[data-reveal="right"] { transform: translateX(28px); }
+  .motion-enabled .reveal[data-reveal="left"].is-visible,
+  .motion-enabled .reveal[data-reveal="right"].is-visible { animation-name: revealSideIn; }
+  .motion-enabled .reveal-stagger > .reveal:nth-child(2) { animation-delay: 0.08s; }
+  .motion-enabled .reveal-stagger > .reveal:nth-child(3) { animation-delay: 0.16s; }
+  .motion-enabled .reveal-stagger > .reveal:nth-child(4) { animation-delay: 0.24s; }
+  .motion-enabled .reveal-stagger > .reveal:nth-child(5) { animation-delay: 0.32s; }
+  @keyframes revealIn {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes revealSideIn {
+    from { opacity: 0; transform: translateX(var(--reveal-start, -28px)); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .motion-enabled .reveal[data-reveal="right"] { --reveal-start: 28px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .motion-enabled .reveal { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-logo { font-size: 0.95rem; }
+    nav > div { gap: 16px; }
+    nav a:not(.nav-cta) { font-size: 0.9rem; }
+    section { padding: 80px 24px; }
+    .hero { padding: 96px 24px 72px; }
+    .why-showcase { grid-template-columns: 1fr; gap: 36px; justify-items: center; }
+    .why-intro-text { max-width: 100%; }
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    section { padding: 60px 20px; }
+    .hero { padding: 70px 20px 60px; }
+    .hero-inner { max-width: 100%; }
+    .hero h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin-bottom: 24px; max-width: 100%; }
+    .hero-tag { font-size: 0.7rem; margin-bottom: 24px; }
+    .hero p { margin-bottom: 32px; }
+    .btn-primary { width: 100%; text-align: center; padding: 14px 24px; font-size: 0.95rem; }
+    .btn-note { font-size: 0.8rem; }
+    h2 { font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 16px; }
+    .stat-box { padding: 24px; }
+    .stat-box p { font-size: 0.95rem; }
+    .cards { grid-template-columns: 1fr; gap: 16px; margin-top: 32px; }
+    .card { padding: 24px; }
+    .card h3 { font-size: 1rem; }
+    .card p { font-size: 0.9rem; }
+    .card-num { font-size: 1.5rem; margin-bottom: 16px; }
+    .card-icon { width: 48px; height: 48px; font-size: 1.3rem; margin-bottom: 16px; }
+    .qualifier-grid { grid-template-columns: 1fr; gap: 16px; }
+    .testimonial-placeholder { grid-template-columns: 1fr; gap: 16px; }
+    .testimonial-card { padding: 24px; }
+    .qual-col { padding: 24px; }
+    .qual-col h3 { margin-bottom: 16px; }
+    .qual-col li { font-size: 0.9rem; padding: 8px 0; }
+    .phone-frame { width: 270px; height: 540px; }
+    .why-item { gap: 12px; padding: 24px 0; }
+    .why-item h3 { font-size: 0.95rem; }
+    .why-item p { font-size: 0.9rem; }
+    .cta-section { padding: 80px 24px; text-align: center; }
+    .cta-section h2 { margin-bottom: 16px; }
+    .cta-section .lead { margin-bottom: 32px; font-size: clamp(0.95rem, 2vw, 1rem); }
+    footer { padding: 48px 24px 0; }
+    .footer-body { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-brand { grid-column: 1 / -1; }
+    .faq-list { margin-top: 32px; }
+    summary { padding: 16px 0; font-size: 0.95rem; }
+    .faq-answer { padding: 0 0 24px; font-size: 0.9rem; }
+    .highlight-green { font-size: 0.95em; }
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 0 16px; height: 56px; }
+    .nav-logo { font-size: 0.88rem; }
+    .nav-cta { font-size: 0.78rem; padding: 8px 14px; }
+    nav > div { gap: 10px; }
+    nav a:not(.nav-cta) { font-size: 0.85rem; }
+    .hero { padding: 64px 16px 48px; }
+    section { padding: 56px 16px; }
+    .hero h1 { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+    .hero p { font-size: 0.95rem; }
+    .btn-primary { padding: 13px 20px; font-size: 0.9rem; }
+    .btn-note { font-size: 0.78rem; }
+    .stat-box { padding: 20px; }
+    .card { padding: 20px; }
+    .why-showcase { gap: 28px; }
+    .phone-frame { width: 240px; height: 480px; }
+    .featured-post { padding: 20px; }
+    .cta-section { padding: 64px 16px; }
+    footer { padding: 48px 16px 0; }
+    .footer-body { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-brand { grid-column: 1 / -1; }
+  }
+</style>
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/index.html"><img src="/images/j4r-black.svg" alt="Just 4 Results"></a>
+  <div style="display: flex; gap: 20px; align-items: center;">
+    <a href="/blog.html" style="text-decoration: none; color: var(--ink); font-size: 0.95rem; font-weight: 500;">Blog</a>
+    <a class="nav-cta" href="/form.html">Free Visibility Check</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag location-badge" id="locationBadge">Local SEO · Lisbon</div>
+    <h1>Turn <span class="google-text"><span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span></span> Searches Into Paying Customers</h1>
+    <p>We'll get your Lisbon service business to the first page of Google within 90 days, so your customers can easily find you. <strong>Guaranteed</strong>.</p>
+    <div class="hero-cta-group">
+      <a class="btn-primary" href="/form.html">Send me a Free Google Visibility Check</a>
+      <span class="btn-note">Takes less than 90 seconds to book. You don't have to commit to anything until you are certain.</span>
+    </div>
+  </div>
+</section>
+
+<section class="opportunity">
+  <div class="container">
+    <p class="section-label">The Opportunity</p>
+    <h2>There are people in Lisbon right now searching on Google for your services.</h2>
+    <p class="lead">We make sure they find you first.</p>
+    <div class="stat-box">
+      <p>Research shows most local customers click on one of the <span class="highlight-green">Top 10 businesses on the first page</span>. Businesses in those spots receive <span class="highlight-green">significantly more calls and quote requests</span> than those ranked below.</p>
+    </div>
+    <p class="lead">Whether you own a gym, a cleaning company, a clinic, or a shop that sells directly to people, we'll put you where the eyes are, delivering a steady flow of new customers.</p>
+  </div>
+</section>
+
+<section class="heatmap-comparison">
+  <div class="container">
+    <div class="heatmap-head">
+      <p class="section-label">Local Grid Heatmap</p>
+      <h2>See the Difference: Good vs. Bad Local Visibility</h2>
+      <p class="lead">Drag the slider to compare what a top-ranking business looks like next to one that's invisible on Google. This is exactly what your customers see.</p>
+    </div>
+
+    <div class="heatmap-window">
+      <div class="heatmap-toolbar">
+        <span class="heatmap-dot r"></span>
+        <span class="heatmap-dot y"></span>
+        <span class="heatmap-dot g"></span>
+        <span class="heatmap-url">google.com/maps/search/business+near+lisbon</span>
+      </div>
+
+      <div class="heatmap-tabs">
+        <button type="button" class="heatmap-tab" data-heatmap-tab="bad">
+          <span class="heatmap-tab-dot bad"></span>
+          Poor Ranking
+        </button>
+        <button type="button" class="heatmap-tab active" data-heatmap-tab="split">
+          Split View
+        </button>
+        <button type="button" class="heatmap-tab" data-heatmap-tab="good">
+          <span class="heatmap-tab-dot good"></span>
+          Good Ranking
+        </button>
+      </div>
+
+      <div class="heatmap-viewer" id="heatmapViewer">
+        <div class="heatmap-layer heatmap-layer-bad" id="heatmapLayerBad">
+          <div class="heatmap-map">
+            <svg class="heatmap-map-bg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect width="400" height="400" fill="#e8eaed"/>
+              <path d="M0 120 Q100 100 200 130 T400 110" stroke="#d4d6d9" stroke-width="20" fill="none" opacity="0.5"/>
+              <path d="M0 250 Q120 230 240 260 T400 240" stroke="#d4d6d9" stroke-width="16" fill="none" opacity="0.5"/>
+              <path d="M80 0 Q70 100 100 200 T90 400" stroke="#d4d6d9" stroke-width="14" fill="none" opacity="0.5"/>
+              <path d="M250 0 Q240 120 270 250 T260 400" stroke="#d4d6d9" stroke-width="18" fill="none" opacity="0.5"/>
+              <rect x="140" y="160" width="80" height="70" rx="4" fill="#cfd1d4" opacity="0.4"/>
+              <rect x="280" y="50" width="60" height="50" rx="4" fill="#cfd1d4" opacity="0.4"/>
+              <rect x="30" y="300" width="70" height="60" rx="4" fill="#cfd1d4" opacity="0.4"/>
+              <circle cx="200" cy="200" r="50" fill="#dfe1e4" opacity="0.3"/>
+            </svg>
+            <div class="heatmap-badge bad"><span class="heatmap-badge-dot"></span>Poor Ranking (Hidden Business)</div>
+            <div class="heatmap-grid-overlay" id="heatmapGridBad"></div>
+          </div>
+        </div>
+
+        <div class="heatmap-layer heatmap-layer-good" id="heatmapLayerGood">
+          <div class="heatmap-map">
+            <svg class="heatmap-map-bg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect width="400" height="400" fill="#e8eaed"/>
+              <path d="M0 120 Q100 100 200 130 T400 110" stroke="#d4d6d9" stroke-width="20" fill="none" opacity="0.5"/>
+              <path d="M0 250 Q120 230 240 260 T400 240" stroke="#d4d6d9" stroke-width="16" fill="none" opacity="0.5"/>
+              <path d="M80 0 Q70 100 100 200 T90 400" stroke="#d4d6d9" stroke-width="14" fill="none" opacity="0.5"/>
+              <path d="M250 0 Q240 120 270 250 T260 400" stroke="#d4d6d9" stroke-width="18" fill="none" opacity="0.5"/>
+              <rect x="140" y="160" width="80" height="70" rx="4" fill="#cfd1d4" opacity="0.4"/>
+              <rect x="280" y="50" width="60" height="50" rx="4" fill="#cfd1d4" opacity="0.4"/>
+              <rect x="30" y="300" width="70" height="60" rx="4" fill="#cfd1d4" opacity="0.4"/>
+              <circle cx="200" cy="200" r="50" fill="#dfe1e4" opacity="0.3"/>
+            </svg>
+            <div class="heatmap-badge good"><span class="heatmap-badge-dot"></span>Good Ranking (High Visibility)</div>
+            <div class="heatmap-grid-overlay" id="heatmapGridGood"></div>
+          </div>
+        </div>
+
+        <div class="heatmap-slider-line" id="heatmapSliderLine"></div>
+        <div class="heatmap-slider-handle" id="heatmapSliderHandle" role="slider" aria-label="Drag to compare good and bad local rankings" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline><polyline points="9 18 3 12 9 6" opacity="0"></polyline></svg>
+        </div>
+      </div>
+
+      <div class="heatmap-legend">
+        <div class="heatmap-legend-item"><span class="heatmap-legend-dot" style="background:#18a957"></span>Top 3 — Most clicks &amp; calls</div>
+        <div class="heatmap-legend-item"><span class="heatmap-legend-dot" style="background:#9b9b94"></span>Positions #4–#10 — Some visibility</div>
+        <div class="heatmap-legend-item"><span class="heatmap-legend-dot" style="background:#dc3545"></span>Position #20+ — Practically invisible</div>
+      </div>
+
+      <div class="heatmap-caption">Drag the handle left and right to reveal the difference. Businesses in green get the calls — businesses in red don't.</div>
+    </div>
+  </div>
+</section>
+
+<section class="plan">
+  <div class="container">
+    <h2>A fully booked calendar starts with being found</h2>
+    <div class="guarantee-box">
+      <strong>Our Guarantee</strong>
+      Within 90 days, we'll take your business from being invisible to local customers on Google to showing up on the first page for your service area. If for any reason we don't get you there, we'll keep working for free until we do.
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="container">
+    <p class="section-label">How It Works</p>
+    <h2>What happens inside the 90 days</h2>
+    <div class="cards">
+      <div class="card blue">
+        <div class="card-icon">🔍</div>
+        <div class="card-num">01</div>
+        <h3>Foundation Audit</h3>
+        <p>We review your current online presence, Google profile, website, and competitors to identify the best opportunities to rank higher and reach your ideal customers.</p>
+      </div>
+      <div class="card green">
+        <div class="card-icon">⚡</div>
+        <div class="card-num">02</div>
+        <h3>Search Optimization</h3>
+        <p>We fix what's stopping you from showing up. We'll make sure your business matches exactly what potential customers are searching for, so you show up first and get the call.</p>
+      </div>
+      <div class="card orange">
+        <div class="card-icon">🏆</div>
+        <div class="card-num">03</div>
+        <h3>Local Authority</h3>
+        <p>We strengthen your online presence by adding your business to trusted local directories that tell Google your business is active, trusted, and relevant to people in Lisbon.</p>
+      </div>
+      <div class="card blue">
+        <div class="card-icon">📈</div>
+        <div class="card-num">04</div>
+        <h3>Clear Reporting</h3>
+        <p>Every week, you get a simple update on what has improved and where things stand. You get a sense of your progress building week after week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="container">
+    <p class="section-label">Why This Works For You</p>
+    <h2>You want someone who actually picks up the phone.</h2>
+    <div class="why-showcase">
+      <div class="phone-mockup">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-statusbar">
+              <span>9:41</span>
+              <span class="phone-indicators">
+                <svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor" aria-hidden="true"><path d="M7 0a7 7 0 0 1 5 2.1l-1 1A5.5 5.5 0 0 0 7 1.5 5.5 5.5 0 0 0 3 3.1l-1-1A7 7 0 0 1 7 0z"/><path d="M7 3a4 4 0 0 1 3 1.3l-1 1A2.5 2.5 0 0 0 7 4.5a2.5 2.5 0 0 0-2 .8l-1-1A4 4 0 0 1 7 3z"/><circle cx="7" cy="8" r="1.2"/></svg>
+                <svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="0.5" y="0.5" width="18" height="9" rx="2"/><rect x="2" y="2" width="14" height="6" rx="1" fill="currentColor"/><rect x="19.5" y="3.5" width="1.5" height="3" rx="0.5" fill="currentColor"/></svg>
+              </span>
+            </div>
+            <div class="phone-chat-header">
+              <div class="phone-avatar">L</div>
+              <div class="phone-contact">
+                <strong>Lamin</strong>
+                <span>online</span>
+              </div>
+              <div class="phone-call-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+            </div>
+            <div class="phone-chat-body">
+              <div class="phone-bubble">I'm Lamin. I run this myself, which means when something needs fixing, you call me directly, and it gets fixed...</div>
+              <div class="phone-bubble-time">Now</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="why-intro-text">
+        <p class="lead">Plus, you're never locked into a contract. Walk away any time you want. We open our partnership with a results based approach: in +/- 90 days, if you're not on the first page of Google, we continue working for free until you do.</p>
+      </div>
+    </div>
+    <div class="why-items">
+      <div class="why-item">
+        <div class="why-arrow">→</div>
+        <div>
+          <h3>One person, start to finish</h3>
+          <p>You deal directly with the person doing the work. No handoffs to an "assistant of an assistant."</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-arrow">→</div>
+        <div>
+          <h3>No surprises</h3>
+          <p>You know exactly what we are going to do for you before you agree to anything.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-arrow">→</div>
+        <div>
+          <h3>We're local</h3>
+          <p>Made in Lisbon. Not tucked away in an anonymous call center.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-arrow">→</div>
+        <div>
+          <h3>You own everything</h3>
+          <p>Every listing, every piece of work. You are never locked into a long contract.</p>
+        </div>
+      </div>
+    </div>
+    <a class="btn-primary" href="/form.html" style="margin-top:40px;display:inline-block;">Send me a Free Google Visibility Check</a>
+    <div class="testimonial-placeholder">
+      <article class="testimonial-card">
+        <div class="testimonial-card-top">
+          <div class="testimonial-person">
+            <span class="testimonial-avatar">L</span>
+            <div class="testimonial-person-info">
+              <cite>Luiz Calisto</cite>
+              <span class="testimonial-source">Google review</span>
+            </div>
+          </div>
+          <svg class="testimonial-google" width="24" height="24" viewBox="0 0 24 24" aria-label="Google"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        </div>
+        <div class="testimonial-rating">
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <span class="testimonial-verified" aria-label="Verified review">✓</span>
+        </div>
+        <blockquote>“Realmente recomendo o Trabalho desta empresa, são profissionais competentes, entregam mesmo o que prometem e muito bem feito e profissional os trabalhos deles. RECOMENDO!”</blockquote>
+        <button type="button" class="testimonial-read-more" aria-expanded="false">Read more</button>
+      </article>
+      <article class="testimonial-card">
+        <div class="testimonial-card-top">
+          <div class="testimonial-person">
+            <span class="testimonial-avatar">E</span>
+            <div class="testimonial-person-info">
+              <cite>evekuzula wammy</cite>
+              <span class="testimonial-source">Google review</span>
+            </div>
+          </div>
+          <svg class="testimonial-google" width="24" height="24" viewBox="0 0 24 24" aria-label="Google"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        </div>
+        <div class="testimonial-rating">
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <span class="testimonial-verified" aria-label="Verified review">✓</span>
+        </div>
+        <blockquote>“Lamin was very professional, I opened my salon with no online presence, he helped me rank number 1 on Google in Montijo and all my clients always tell me I search for salon on Google and you appeared first. I recommend 100%.”</blockquote>
+        <button type="button" class="testimonial-read-more" aria-expanded="false">Read more</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="qualifier">
+  <div class="container">
+    <p class="section-label">Who This Is For</p>
+    <h2>Is this the right fit for your business?</h2>
+    <div class="qualifier-grid">
+      <div class="qual-col yes">
+        <h3>This is for you if</h3>
+        <ul>
+          <li>You run an established brick and mortar business in Lisbon</li>
+          <li>You want consistent and predictable bookings</li>
+          <li>You value clear communication and honest updates</li>
+          <li>You understand that Google improvements take weeks, not days</li>
+        </ul>
+      </div>
+      <div class="qual-col no">
+        <h3>This is not for you if</h3>
+        <ul>
+          <li>You need clients by the end of this week</li>
+          <li>You expect overnight results</li>
+          <li>You are not willing to give basic access to your Google account or website</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="container">
+    <p class="section-label">FAQ</p>
+    <h2>Still not sure?</h2>
+    <div class="faq-list">
+      <details>
+        <summary>How long until I see results?</summary>
+        <p class="faq-answer">Most businesses start to see movement in local rankings within 4 to 8 weeks. Consistent results are typically clear by the end of the 90 days and keep improving after.</p>
+      </details>
+      <details>
+        <summary>What do you need from me?</summary>
+        <p class="faq-answer">Basic access to your Google Business Profile, basic website access, and a 15-minute onboarding call. After that, we handle the work and keep you updated weekly.</p>
+      </details>
+      <details>
+        <summary>What happens after 90 days?</summary>
+        <p class="faq-answer">You own everything we set up, and it keeps working for you. If you choose to continue, we maintain your position and avoid working with a competitor in your area.</p>
+      </details>
+      <details>
+        <summary>How is this different from running ads?</summary>
+        <p class="faq-answer">Ads deliver results while you are paying for them. Local SEO builds visibility that helps people find you without paying Google and makes any future ads more effective.</p>
+      </details>
+      <details>
+        <summary>Why does the first page on Google Maps matter so much?</summary>
+        <p class="faq-answer">Most local searchers click on one of the top 10 results, and businesses in those spots receive significantly more calls, website visits, and direction requests than everyone ranked below them. It is the most valuable real estate in local search, and it is free.</p>
+      </details>
+      <details>
+        <summary>What if I am already getting some clients?</summary>
+        <p class="faq-answer">Good, that means your business works. This helps you capture the ones you are currently missing and makes you the obvious choice for locals in your area.</p>
+      </details>
+      <details>
+        <summary>What does it cost?</summary>
+        <p class="faq-answer">We go over pricing during the free review once we have looked at your current situation.</p>
+      </details>
+      <details>
+        <summary>How do I know this will actually work for my business?</summary>
+        <p class="faq-answer">That's why we start with a free analysis. We look at your market, competitors, and where customers are searching. If we don't think we can get you results, we'll tell you upfront.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Get Started</h2>
+    <p class="lead">Get a free visibility check to see how you rank against local competitors, plus we'll throw in 3 simple fixes you can make right away. You don't have to commit to anything.</p>
+    <div class="hero-cta-group" style="align-items:center;">
+      <a class="btn-primary" href="/form.html">Send me a Free Google Visibility Check</a>
+      <span class="btn-note">Takes less than 90 seconds to request. You don't have to commit to anything until you are certain.</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-body">
+    <div class="footer-brand">
+      <div class="footer-brand-logo">
+        <img src="/images/j4r-black.svg" alt="Just 4 Results">
+      </div>
+      <p>Helping Lisbon brick and mortar businesses get found online by their customers.</p>
+      <div class="footer-brand-social">
+        <a href="mailto:info@just4results.com" aria-label="Email" class="email-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </a>
+        <a href="#" aria-label="Instagram" class="ig-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Product</div>
+      <ul>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/form.html">Free Visibility Check</a></li>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/case-study.html">Case Study</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <li><a href="#">SEO</a></li>
+        <li><a href="#">Website</a></li>
+        <li><a href="#">Paid Advertising / PPC</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legal</div>
+      <ul>
+        <li><a href="/terms.html">Terms of Service</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-copy">© 2026 Just 4 Results. All rights reserved. <span>Made in Lisbon</span>
+      <span class="footer-bottom-dev">Developed by <a href="https://just4results.com">Just 4 Results</a></span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  document.body.classList.add('motion-enabled');
+
+  var revealGroups = [
+    { selector: '.opportunity .container > *', direction: 'left' },
+    { selector: '.plan .container > *', direction: 'right' },
+    { selector: '.how .container > *', direction: 'up' },
+    { selector: '.heatmap-comparison .container > *', direction: 'up' },
+    { selector: '.why .container > *', direction: 'up' },
+    { selector: '.qualifier .container > *', direction: 'up' },
+    { selector: '.faq .container > *', direction: 'up' },
+    { selector: '.cta-section .container > *', direction: 'up' }
+  ];
+
+  revealGroups.forEach(function (group) {
+    var elements = document.querySelectorAll(group.selector);
+    elements.forEach(function (element, index) {
+      if (element.classList.contains('hero-inner')) return;
+      element.classList.add('reveal');
+      if (group.direction !== 'up') element.dataset.reveal = group.direction;
+      if (index > 0) element.style.animationDelay = Math.min(index * 0.07, 0.28) + 's';
+    });
+  });
+
+  ['.cards', '.why-items', '.testimonial-placeholder', '.qualifier-grid', '.faq-list'].forEach(function (selector) {
+    var group = document.querySelector(selector);
+    if (!group) return;
+    group.classList.add('reveal-stagger');
+    group.querySelectorAll(':scope > *').forEach(function (element) {
+      element.classList.add('reveal');
+    });
+  });
+
+  var revealItems = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var revealObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -44px' });
+    revealItems.forEach(function (item) { revealObserver.observe(item); });
+  } else {
+    revealItems.forEach(function (item) { item.classList.add('is-visible'); });
+  }
+
+  document.querySelectorAll('.testimonial-read-more').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var card = btn.closest('.testimonial-card');
+      var expanded = card.classList.toggle('expanded');
+      btn.textContent = expanded ? 'Show less' : 'Read more';
+      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    });
+  });
+
+  (function () {
+    var goodRanks = [1, 1, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 1];
+    var badRanks = [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20];
+
+    function buildGrid(containerId, ranks, mode) {
+      var container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+      ranks.forEach(function (rank) {
+        var cell = document.createElement('div');
+        cell.className = 'heatmap-cell';
+        var pin = document.createElement('div');
+        if (mode === 'good') {
+          pin.className = rank <= 3 ? 'heatmap-pin good' : 'heatmap-pin muted';
+        } else {
+          pin.className = 'heatmap-pin bad';
+        }
+        pin.textContent = '#' + rank;
+        cell.appendChild(pin);
+        container.appendChild(cell);
+      });
+    }
+
+    buildGrid('heatmapGridGood', goodRanks, 'good');
+    buildGrid('heatmapGridBad', badRanks, 'bad');
+
+    var viewer = document.getElementById('heatmapViewer');
+    var layerGood = document.getElementById('heatmapLayerGood');
+    var sliderLine = document.getElementById('heatmapSliderLine');
+    var sliderHandle = document.getElementById('heatmapSliderHandle');
+    var tabs = document.querySelectorAll('[data-heatmap-tab]');
+    var sliderPos = 50;
+    var dragMode = 'split';
+
+    function setSliderPosition(pct) {
+      sliderPos = Math.max(0, Math.min(100, pct));
+      layerGood.style.clipPath = 'inset(0 0 0 ' + sliderPos + '%)';
+      sliderLine.style.left = sliderPos + '%';
+      sliderHandle.style.left = sliderPos + '%';
+      sliderHandle.setAttribute('aria-valuenow', Math.round(sliderPos));
+    }
+
+    function setMode(mode) {
+      dragMode = mode;
+      tabs.forEach(function (tab) {
+        tab.classList.toggle('active', tab.dataset.heatmapTab === mode);
+      });
+      sliderLine.style.display = mode === 'split' ? '' : 'none';
+      sliderHandle.style.display = mode === 'split' ? '' : 'none';
+      if (mode === 'good') {
+        layerGood.style.clipPath = 'inset(0 0 0 0)';
+      } else if (mode === 'bad') {
+        layerGood.style.clipPath = 'inset(0 0 0 100%)';
+      } else {
+        setSliderPosition(sliderPos);
+      }
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        setMode(tab.dataset.heatmapTab);
+      });
+    });
+
+    function getClientX(e) {
+      return e.touches ? e.touches[0].clientX : e.clientX;
+    }
+
+    function updateFromPointer(clientX) {
+      var rect = viewer.getBoundingClientRect();
+      var pct = ((clientX - rect.left) / rect.width) * 100;
+      setSliderPosition(pct);
+    }
+
+    var isDragging = false;
+
+    function onDragStart(e) {
+      if (dragMode !== 'split') return;
+      isDragging = true;
+      e.preventDefault();
+      updateFromPointer(getClientX(e));
+    }
+
+    function onDragMove(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      updateFromPointer(getClientX(e));
+    }
+
+    function onDragEnd() {
+      isDragging = false;
+    }
+
+    sliderHandle.addEventListener('mousedown', onDragStart);
+    sliderHandle.addEventListener('touchstart', onDragStart, { passive: false });
+    viewer.addEventListener('mousedown', function (e) {
+      if (dragMode !== 'split') return;
+      onDragStart(e);
+    });
+    viewer.addEventListener('touchstart', function (e) {
+      if (dragMode !== 'split') return;
+      onDragStart(e);
+    }, { passive: false });
+    document.addEventListener('mousemove', onDragMove);
+    document.addEventListener('touchmove', onDragMove, { passive: false });
+    document.addEventListener('mouseup', onDragEnd);
+    document.addEventListener('touchend', onDragEnd);
+
+    sliderHandle.addEventListener('keydown', function (e) {
+      if (dragMode !== 'split') return;
+      if (e.key === 'ArrowLeft') { setSliderPosition(sliderPos - 4); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { setSliderPosition(sliderPos + 4); e.preventDefault(); }
+    });
+
+    setSliderPosition(50);
+  })();
+</script>
+</body>
+</html>
